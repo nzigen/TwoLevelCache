@@ -1,0 +1,22 @@
+{
+  "name": "TwoLevelCache",
+  "version": "0.1.0",
+  "summary": "A short description of TwoLevelCache.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Yoshihiro Sawa/TwoLevelCache",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Yoshihiro Sawa": "yoshihirosawa@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Yoshihiro Sawa/TwoLevelCache.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "TwoLevelCache/Classes/**/*"
+}

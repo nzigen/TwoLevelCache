@@ -1,0 +1,6 @@
+framework module Pods_TwoLevelCache_Example {
+  umbrella header "Pods-TwoLevelCache_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

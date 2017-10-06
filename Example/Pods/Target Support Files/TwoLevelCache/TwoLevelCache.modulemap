@@ -1,0 +1,6 @@
+framework module TwoLevelCache {
+  umbrella header "TwoLevelCache-umbrella.h"
+
+  export *
+  module * { export * }
+}
