@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'TwoLevelCache_Example' do
+  pod 'TwoLevelCache', :path => '../'
+
+  target 'TwoLevelCache_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
