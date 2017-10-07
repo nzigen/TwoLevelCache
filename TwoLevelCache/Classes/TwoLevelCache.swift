@@ -36,21 +36,16 @@ open class TwoLevelCache<T: NSObject>: NSObject {
     
     public func loadObjectForKey(_ key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
         queue.async {
-            let keyString = key as NSString
-            if let object = self.memoryCache.object(forKey: keyString) {
+            if let object = self.object(forMemoryCacheKey: key) {
                 callback(object, .memory)
                 return
             }
-            let url = self.encodeFilePath(key)
-            let data = try? Data(contentsOf: url)
-            if let data = data {
-                if let object = self.objectDecoder(data) {
-                    self.queue.async {
-                        self.memoryCache.setObject(object, forKey: keyString)
-                    }
-                    callback(object, .file)
-                    return
+            if let object = self.object(forFileCacheKey: key) {
+                self.queue.async {
+                    self.saveObject(object, forFileCacheKey: key)
                 }
+                callback(object, .memory)
+                return
             }
             self.downloader(key, { (_ data: Data?) in
                 if let data = data {
@@ -66,6 +61,21 @@ open class TwoLevelCache<T: NSObject>: NSObject {
                 callback(nil, .error)
             })
         }
+    }
+    
+    public func object(forFileCacheKey key: String) -> T? {
+        let url = self.encodeFilePath(key)
+        let data = try? Data(contentsOf: url)
+        if let data = data {
+            if let object = self.objectDecoder(data) {
+                return object
+            }
+        }
+        return nil
+    }
+    
+    public func object(forMemoryCacheKey key: String) -> T? {
+        return self.memoryCache.object(forKey: key as NSString)
     }
     
     public func removeAllObjects() {
