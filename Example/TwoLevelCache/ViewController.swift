@@ -19,7 +19,8 @@ class ViewController: UIViewController {
     
     func load() {
         let text = self.textView.attributedText.mutableCopy() as! NSMutableAttributedString
-        text.append(NSAttributedString(string: "Loading an image.\n"))
+        self.count += 1
+        text.append(NSAttributedString(string: String(format: "%d) Loading an image.\n", count)))
         textView.attributedText = text
 
         cache.loadObjectForKey(ViewControllerImagePath) { (image, status) in
@@ -43,13 +44,12 @@ class ViewController: UIViewController {
                         break
                     }
                     text.append(NSAttributedString(attachment: textAttachment))
-                    text.append(NSAttributedString(string: "\n"))
+                    text.append(NSAttributedString(string: "\n\n"))
                     self.textView.attributedText = text
                 } else {
-                    text.append(NSAttributedString(string: "Failed.\n"))
+                    text.append(NSAttributedString(string: "Failed.\n\n"))
                     self.textView.attributedText = text
                 }
-                self.count += 1
                 if self.count < 3 {
                     sleep(5)
                     self.load()
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         } catch {
             
         }
-        let text = NSMutableAttributedString(string: "Cache initialized.\n")
+        let text = NSMutableAttributedString(string: "Cache initialized.\n\n")
         textView.attributedText = text
         load()
     }
