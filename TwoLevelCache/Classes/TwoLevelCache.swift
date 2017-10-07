@@ -59,15 +59,25 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         }
     }
     
+    public func removeAllObjects() {
+        self.memoryCache.removeAllObjects()
+        let urls = try? self.fileManager.contentsOfDirectory(at: self.fileCacheDirectory, includingPropertiesForKeys: nil, options: [])
+        urls?.forEach({ (url) in
+            try? self.fileManager.removeItem(at: url)
+        })
+    }
+    
     public func removeAllObjects(callback: Callback?) {
         queue.async {
-            self.memoryCache.removeAllObjects()
-            let urls = try? self.fileManager.contentsOfDirectory(at: self.fileCacheDirectory, includingPropertiesForKeys: nil, options: [])
-            urls?.forEach({ (url) in
-                try? self.fileManager.removeItem(at: url)
-            })
+            self.removeAllObjects()
             callback?()
         }
+    }
+    
+    public func removeObjectForKey(_ key: String) {
+        self.memoryCache.removeObject(forKey: key as NSString)
+        let url = self.encodeFilePath(key)
+        try? self.fileManager.removeItem(at: url)
     }
     
     public func saveData(_ data: Data, forFileCacheKey key: String) {

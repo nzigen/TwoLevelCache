@@ -22,7 +22,7 @@ pod 'TwoLevelCache'
 
 ## Author
 
-Yoshihiro Sawa, yoshihirosawa@gmail.com
+Yoshihiro Sawa, yoshihirosawa at gmail.com
 
 ## License
 
