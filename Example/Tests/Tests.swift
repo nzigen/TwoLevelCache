@@ -14,9 +14,15 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testInitialization() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        var cache: TwoLevelCache<UIImage>!
+        do {
+            cache = try TwoLevelCache<UIImage>("cache")
+        } catch {
+            
+        }
+        XCTAssertEqual(cache.name, "cache")
     }
     
     func testPerformanceExample() {

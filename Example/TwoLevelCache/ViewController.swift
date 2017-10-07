@@ -9,10 +9,12 @@
 import UIKit
 import TwoLevelCache
 
+fileprivate let ViewControllerImagePath = "https://nzigen.com/static/img/common/logo.png"
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
-    var cache: TwoLevelCache!
+    var cache: TwoLevelCache<UIImage>!
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -29,7 +31,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        cache = TwoLevelCache("cache")
+        do {
+            cache = try TwoLevelCache<UIImage>("cache")
+        } catch {
+            
+        }
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     }
 }

@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C3D68CF7E30C40B13A5767B /* TwoLevelCache.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = TwoLevelCache.podspec; path = ../TwoLevelCache.podspec; sourceTree = "<group>"; };
+		0C3D68CF7E30C40B13A5767B /* TwoLevelCache.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TwoLevelCache.podspec; path = ../TwoLevelCache.podspec; sourceTree = "<group>"; };
 		326A56CE138E9312ECC90059 /* Pods-TwoLevelCache_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoLevelCache_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwoLevelCache_Example/Pods-TwoLevelCache_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4CE5ACADFCE0AF614F63A7F9 /* Pods_TwoLevelCache_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoLevelCache_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* TwoLevelCache_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoLevelCache_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,10 +42,10 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		96B7BC36852DB836017EEBA9 /* Pods-TwoLevelCache_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoLevelCache_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwoLevelCache_Tests/Pods-TwoLevelCache_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		A0DEA6F6E7E4B011B78D79CC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		A0DEA6F6E7E4B011B78D79CC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		A7C1AA2039507A1ACA799257 /* Pods_TwoLevelCache_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoLevelCache_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4607507F698E48161DE22FE /* Pods-TwoLevelCache_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoLevelCache_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwoLevelCache_Tests/Pods-TwoLevelCache_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		CB882BF14E1A2A0ABA6010AD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		CB882BF14E1A2A0ABA6010AD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E11B64E0E7CE10BD7E23D4DB /* Pods-TwoLevelCache_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoLevelCache_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwoLevelCache_Example/Pods-TwoLevelCache_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,7 +220,6 @@
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0820;
-						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
 			};
@@ -532,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96B7BC36852DB836017EEBA9 /* Pods-TwoLevelCache_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -552,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4607507F698E48161DE22FE /* Pods-TwoLevelCache_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
