@@ -7,9 +7,14 @@
 
 import Foundation
 
+public enum TwoLevelCacheLoadStatus: Int {
+    case downloader = 3
+    case error = -1
+    case file = 2
+    case memory = 1
+}
+
 open class TwoLevelCache<T: NSObject>: NSObject {
-    public typealias Callback = () -> Void
-    public typealias ObjectCallback = (T?) -> Void
     public var downloader: ((String, @escaping (Data?) -> Void) -> Void)!
     public let name: String
     public var objectDecoder: ((Data) -> T?)!
@@ -29,32 +34,36 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         try fileManager.createDirectory(at: fileCacheDirectory, withIntermediateDirectories: true, attributes: nil)
     }
     
-    public func loadObjectForKey(_ key: String, callback: @escaping ObjectCallback) {
+    public func loadObjectForKey(_ key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
         queue.async {
             let keyString = key as NSString
             if let object = self.memoryCache.object(forKey: keyString) {
-                callback(object)
+                callback(object, .memory)
                 return
             }
             let url = self.encodeFilePath(key)
             let data = try? Data(contentsOf: url)
             if let data = data {
                 if let object = self.objectDecoder(data) {
-                    callback(object)
-                    self.memoryCache.setObject(object, forKey: keyString)
+                    self.queue.async {
+                        self.memoryCache.setObject(object, forKey: keyString)
+                    }
+                    callback(object, .file)
                     return
                 }
             }
             self.downloader(key, { (_ data: Data?) in
                 if let data = data {
                     if let object = self.objectDecoder(data) {
-                        callback(object)
-                        self.saveObject(object, forMemoryCacheKey: key)
-                        self.saveData(data, forFileCacheKey: key)
+                        self.queue.async {
+                            self.saveObject(object, forMemoryCacheKey: key)
+                            self.saveData(data, forFileCacheKey: key)
+                        }
+                        callback(object, .downloader)
                         return
                     }
                 }
-                callback(nil)
+                callback(nil, .error)
             })
         }
     }
@@ -67,7 +76,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         })
     }
     
-    public func removeAllObjects(callback: Callback?) {
+    public func removeAllObjects(callback: (() -> Void)?) {
         queue.async {
             self.removeAllObjects()
             callback?()

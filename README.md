@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/TwoLevelCache.svg?style=flat)](http://cocoapods.org/pods/TwoLevelCache)
 [![Platform](https://img.shields.io/cocoapods/p/TwoLevelCache.svg?style=flat)](http://cocoapods.org/pods/TwoLevelCache)
 
-Customizable two-level cache for iOS (Swift). Level 1 is memory powered by NSCache and Level 2 is filesystem which uses NSCachesDirectory.
+Customizable two-level cache for iOS (Swift). Level 1 is memory powered by NSCache and level 2 is filesystem which uses NSCachesDirectory.
 
-All cache data are managed by OS level, then you should not consider the number of objects and the usages of memory or storage.
+All cache data are managed by OS level. Then you should not consider the number of objects and the usages of memory or storage.
 
 ## Example
 
