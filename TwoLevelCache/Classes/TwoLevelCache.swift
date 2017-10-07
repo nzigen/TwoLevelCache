@@ -42,17 +42,17 @@ open class TwoLevelCache<T: NSObject>: NSObject {
             }
             if let object = self.object(forFileCacheKey: key) {
                 self.queue.async {
-                    self.saveObject(object, forMemoryCacheKey: key)
+                    self.setObject(object, forMemoryCacheKey: key)
                 }
-                callback(object, .memory)
+                callback(object, .file)
                 return
             }
             self.downloader(key, { (_ data: Data?) in
                 if let data = data {
                     if let object = self.objectDecoder(data) {
                         self.queue.async {
-                            self.saveObject(object, forMemoryCacheKey: key)
-                            self.saveData(data, forFileCacheKey: key)
+                            self.setObject(object, forMemoryCacheKey: key)
+                            self.setData(data, forFileCacheKey: key)
                         }
                         callback(object, .downloader)
                         return
@@ -99,12 +99,12 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         try? self.fileManager.removeItem(at: url)
     }
     
-    public func saveData(_ data: Data, forFileCacheKey key: String) {
+    public func setData(_ data: Data, forFileCacheKey key: String) {
         let url = self.encodeFilePath(key)
         try? data.write(to: url)
     }
     
-    public func saveData(_ data: Data, forMemoryCacheKey key: String) {
+    public func setData(_ data: Data, forMemoryCacheKey key: String) {
         if let object = objectDecoder(data) {
             memoryCache.setObject(object, forKey: key as NSString)
         } else {
@@ -112,12 +112,12 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         }
     }
     
-    public func saveData(_ data: Data, forKey key: String) {
-        saveData(data, forMemoryCacheKey: key)
-        saveData(data, forFileCacheKey: key)
+    public func setData(_ data: Data, forKey key: String) {
+        setData(data, forMemoryCacheKey: key)
+        setData(data, forFileCacheKey: key)
     }
     
-    public func saveObject(_ object: T, forFileCacheKey key: String) {
+    public func setObject(_ object: T, forFileCacheKey key: String) {
         let url = self.encodeFilePath(key)
         if let data = self.objectEncoder(object) {
             try? data.write(to: url)
@@ -126,13 +126,13 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         }
     }
     
-    public func saveObject(_ object: T, forMemoryCacheKey key: String) {
+    public func setObject(_ object: T, forMemoryCacheKey key: String) {
         memoryCache.setObject(object, forKey: key as NSString)
     }
     
-    public func saveObject(_ object: T, forKey key: String) {
-        saveObject(object, forMemoryCacheKey: key)
-        saveObject(object, forFileCacheKey: key)
+    public func setObject(_ object: T, forKey key: String) {
+        setObject(object, forMemoryCacheKey: key)
+        setObject(object, forFileCacheKey: key)
     }
     
     private func encodeFilePath(_ path: String) -> URL {
