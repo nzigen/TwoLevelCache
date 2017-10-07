@@ -10,7 +10,7 @@ import Foundation
 open class TwoLevelCache<T: NSObject>: NSObject {
     public typealias Callback = () -> Void
     public typealias ObjectCallback = (T?) -> Void
-    public var downloader: ((String) -> Data?)!
+    public var downloader: ((String, @escaping (Data?) -> Void) -> Void)!
     public let name: String
     public var objectDecoder: ((Data) -> T?)!
     public var objectEncoder: ((T) -> Data?)!
@@ -45,15 +45,17 @@ open class TwoLevelCache<T: NSObject>: NSObject {
                     return
                 }
             }
-            if let data = self.downloader(key) {
-                if let object = self.objectDecoder(data) {
-                    callback(object)
-                    self.saveObject(object, forMemoryCacheKey: key)
-                    self.saveData(data, forFileCacheKey: key)
-                    return
+            self.downloader(key, { (_ data: Data?) in
+                if let data = data {
+                    if let object = self.objectDecoder(data) {
+                        callback(object)
+                        self.saveObject(object, forMemoryCacheKey: key)
+                        self.saveData(data, forFileCacheKey: key)
+                        return
+                    }
                 }
-            }
-            callback(nil)
+                callback(nil)
+            })
         }
     }
     
