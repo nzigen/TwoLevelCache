@@ -42,7 +42,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
             }
             if let object = self.object(forFileCacheKey: key) {
                 self.queue.async {
-                    self.saveObject(object, forFileCacheKey: key)
+                    self.saveObject(object, forMemoryCacheKey: key)
                 }
                 callback(object, .memory)
                 return
