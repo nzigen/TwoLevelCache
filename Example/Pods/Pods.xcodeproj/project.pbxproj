@@ -16,7 +16,6 @@
 		99A502D55CE00437503C215BBDE4B33F /* Pods-TwoLevelCache_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE8DE451E2FDFE406346075EF9C61C /* Pods-TwoLevelCache_Example-dummy.m */; };
 		B601E00D5408833A6C4CD8A5CDE45136 /* TwoLevelCache-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D3EFEEB508F5CE38F3F2FAACB77BFC /* TwoLevelCache-dummy.m */; };
 		BF4E506E656009CB646CFBCEACEC9FC3 /* Pods-TwoLevelCache_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F759A5C8B3AE00C83E11B6337D4D6D2C /* Pods-TwoLevelCache_Tests-dummy.m */; };
-		D21095ADF9C211399C602D0F2E5A2388 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DC1D6BD108B3E3F216857539844CE /* ReplaceMe.swift */; };
 		FF9250242C4055D3C4BB22173F57B7A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		86E923A3DFD1C10845AE10D452532DFD /* TwoLevelCache.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = TwoLevelCache.modulemap; sourceTree = "<group>"; };
 		8B47223B45EB7B0B8A09FC9143E506E1 /* Pods-TwoLevelCache_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TwoLevelCache_Example.modulemap"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		982DC1D6BD108B3E3F216857539844CE /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = TwoLevelCache/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		98720384407F8C578F2B0BF1FD25708E /* Pods-TwoLevelCache_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TwoLevelCache_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A3D3EFEEB508F5CE38F3F2FAACB77BFC /* TwoLevelCache-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TwoLevelCache-dummy.m"; sourceTree = "<group>"; };
 		B6454937E07291C262F751F3B8EC17C5 /* Pods-TwoLevelCache_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TwoLevelCache_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				5170DD191F872D5F0026CF1C /* TwoLevelCache.swift */,
-				982DC1D6BD108B3E3F216857539844CE /* ReplaceMe.swift */,
 				976A89E91ED184510B43255DC221F4FE /* Support Files */,
 			);
 			name = TwoLevelCache;
@@ -345,7 +342,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D21095ADF9C211399C602D0F2E5A2388 /* ReplaceMe.swift in Sources */,
 				B601E00D5408833A6C4CD8A5CDE45136 /* TwoLevelCache-dummy.m in Sources */,
 				5170DD1B1F872F340026CF1C /* TwoLevelCache.swift in Sources */,
 			);

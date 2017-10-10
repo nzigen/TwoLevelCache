@@ -34,7 +34,18 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         try fileManager.createDirectory(at: fileCacheDirectory, withIntermediateDirectories: true, attributes: nil)
     }
     
-    public func loadObjectForKey(_ key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
+    public func object(forFileCacheKey key: String) -> T? {
+        let url = self.encodeFilePath(key)
+        let data = try? Data(contentsOf: url)
+        if let data = data {
+            if let object = self.objectDecoder(data) {
+                return object
+            }
+        }
+        return nil
+    }
+    
+    public func object(forKey key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
         queue.async {
             if let object = self.object(forMemoryCacheKey: key) {
                 callback(object, .memory)
@@ -63,17 +74,6 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         }
     }
     
-    public func object(forFileCacheKey key: String) -> T? {
-        let url = self.encodeFilePath(key)
-        let data = try? Data(contentsOf: url)
-        if let data = data {
-            if let object = self.objectDecoder(data) {
-                return object
-            }
-        }
-        return nil
-    }
-    
     public func object(forMemoryCacheKey key: String) -> T? {
         return self.memoryCache.object(forKey: key as NSString)
     }
@@ -93,7 +93,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         }
     }
     
-    public func removeObjectForKey(_ key: String) {
+    public func removeObject(forKey key: String) {
         self.memoryCache.removeObject(forKey: key as NSString)
         let url = self.encodeFilePath(key)
         try? self.fileManager.removeItem(at: url)
@@ -104,17 +104,17 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         try? data.write(to: url)
     }
     
+    public func setData(_ data: Data, forKey key: String) {
+        setData(data, forMemoryCacheKey: key)
+        setData(data, forFileCacheKey: key)
+    }
+    
     public func setData(_ data: Data, forMemoryCacheKey key: String) {
         if let object = objectDecoder(data) {
             memoryCache.setObject(object, forKey: key as NSString)
         } else {
             memoryCache.removeObject(forKey: key as NSString)
         }
-    }
-    
-    public func setData(_ data: Data, forKey key: String) {
-        setData(data, forMemoryCacheKey: key)
-        setData(data, forFileCacheKey: key)
     }
     
     public func setObject(_ object: T, forFileCacheKey key: String) {
