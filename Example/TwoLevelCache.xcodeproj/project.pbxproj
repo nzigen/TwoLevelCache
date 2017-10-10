@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		492931FE4F56E23FC3D22B17 /* Pods_TwoLevelCache_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CE5ACADFCE0AF614F63A7F9 /* Pods_TwoLevelCache_Tests.framework */; };
+		5123188F1F8D18CC0032A197 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		B0DF62162D4096E7938BD165 /* Pods_TwoLevelCache_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C1AA2039507A1ACA799257 /* Pods_TwoLevelCache_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +31,7 @@
 		0C3D68CF7E30C40B13A5767B /* TwoLevelCache.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TwoLevelCache.podspec; path = ../TwoLevelCache.podspec; sourceTree = "<group>"; };
 		326A56CE138E9312ECC90059 /* Pods-TwoLevelCache_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoLevelCache_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwoLevelCache_Example/Pods-TwoLevelCache_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4CE5ACADFCE0AF614F63A7F9 /* Pods_TwoLevelCache_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoLevelCache_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5123188E1F8D18B30032A197 /* TwoLevelCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TwoLevelCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* TwoLevelCache_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoLevelCache_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		DD3464753AAB8725CA9657BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5123188E1F8D18B30032A197 /* TwoLevelCache.framework */,
 				A7C1AA2039507A1ACA799257 /* Pods_TwoLevelCache_Example.framework */,
 				4CE5ACADFCE0AF614F63A7F9 /* Pods_TwoLevelCache_Tests.framework */,
 			);
@@ -378,7 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				5123188F1F8D18CC0032A197 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +453,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -491,7 +493,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
