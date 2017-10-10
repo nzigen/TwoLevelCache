@@ -1,5 +1,6 @@
 import UIKit
 import XCTest
+import TwoLevelCache
 
 class Tests: XCTestCase {
     
@@ -14,15 +15,42 @@ class Tests: XCTestCase {
     }
     
     func testInitialization() {
-        // This is an example of a functional test case.
-        XCTAssertTrue(true)
+        let cache = try? TwoLevelCache<UIImage>("cache")
+        XCTAssertNotNil(cache)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure() {
-            // Put the code you want to measure the time of here.
+    func testLoadWithDownloaderOrCaches() {
+        let cache = try! TwoLevelCache<UIImage>("cache")
+        cache.downloader = { (key, callback) in
+            let url = URL(string: key)!
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                callback(data)
+                }.resume()
         }
+        cache.objectDecoder = { (data) in
+            return UIImage(data: data)
+        }
+        cache.objectEncoder = { (object) in
+            return UIImagePNGRepresentation(object)
+        }
+        let expectation0 =
+            self.expectation(description: "downloading an image")
+        let expectation1 =
+            self.expectation(description: "finding an image from caches")
+        let url = "https://nzigen.com/static/img/common/logo.png?v=\(Date().timeIntervalSince1970)"
+        cache.findObject(forKey: url) { (image, status) in
+            XCTAssertNotNil(image)
+            XCTAssertEqual(status, TwoLevelCacheLoadStatus.downloader)
+            expectation0.fulfill()
+            cache.findObject(forKey: url) { (image, status) in
+                XCTAssertNotNil(image)
+                let statuses: [TwoLevelCacheLoadStatus] = [.memory, .file]
+                XCTAssertTrue(statuses.contains(where: { (target) -> Bool in
+                    return status == target
+                }))
+                expectation1.fulfill()
+            }
+        }
+        wait(for: [expectation0, expectation1], timeout: 30)
     }
-    
 }

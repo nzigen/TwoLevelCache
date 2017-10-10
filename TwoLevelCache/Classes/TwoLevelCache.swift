@@ -34,18 +34,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         try fileManager.createDirectory(at: fileCacheDirectory, withIntermediateDirectories: true, attributes: nil)
     }
     
-    public func object(forFileCacheKey key: String) -> T? {
-        let url = self.encodeFilePath(key)
-        let data = try? Data(contentsOf: url)
-        if let data = data {
-            if let object = self.objectDecoder(data) {
-                return object
-            }
-        }
-        return nil
-    }
-    
-    public func object(forKey key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
+    public func findObject(forKey key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
         queue.async {
             if let object = self.object(forMemoryCacheKey: key) {
                 callback(object, .memory)
@@ -72,6 +61,17 @@ open class TwoLevelCache<T: NSObject>: NSObject {
                 callback(nil, .error)
             })
         }
+    }
+    
+    public func object(forFileCacheKey key: String) -> T? {
+        let url = self.encodeFilePath(key)
+        let data = try? Data(contentsOf: url)
+        if let data = data {
+            if let object = self.objectDecoder(data) {
+                return object
+            }
+        }
+        return nil
     }
     
     public func object(forMemoryCacheKey key: String) -> T? {

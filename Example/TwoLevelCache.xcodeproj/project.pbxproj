@@ -32,6 +32,8 @@
 		326A56CE138E9312ECC90059 /* Pods-TwoLevelCache_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwoLevelCache_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwoLevelCache_Example/Pods-TwoLevelCache_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4CE5ACADFCE0AF614F63A7F9 /* Pods_TwoLevelCache_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwoLevelCache_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5123188E1F8D18B30032A197 /* TwoLevelCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TwoLevelCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		512318951F8D21D80032A197 /* TwoLevelCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TwoLevelCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		512318971F8D22690032A197 /* Pods_TwoLevelCache_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_TwoLevelCache_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* TwoLevelCache_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoLevelCache_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,8 @@
 		DD3464753AAB8725CA9657BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				512318971F8D22690032A197 /* Pods_TwoLevelCache_Example.framework */,
+				512318951F8D21D80032A197 /* TwoLevelCache.framework */,
 				5123188E1F8D18B30032A197 /* TwoLevelCache.framework */,
 				A7C1AA2039507A1ACA799257 /* Pods_TwoLevelCache_Example.framework */,
 				4CE5ACADFCE0AF614F63A7F9 /* Pods_TwoLevelCache_Tests.framework */,
@@ -222,6 +226,7 @@
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0820;
+						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
 			};
@@ -547,6 +552,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwoLevelCache_Example.app/TwoLevelCache_Example";
 			};
 			name = Debug;
 		};
@@ -564,6 +570,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwoLevelCache_Example.app/TwoLevelCache_Example";
 			};
 			name = Release;
 		};

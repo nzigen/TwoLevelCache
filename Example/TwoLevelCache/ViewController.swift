@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         text.append(NSAttributedString(string: String(format: "%d) Loading an image.\n", count)))
         textView.attributedText = text
 
-        cache.object(forKey: ViewControllerImagePath) { (image, status) in
+        cache.findObject(forKey: ViewControllerImagePath) { (image, status) in
             DispatchQueue.main.sync {
                 let text = self.textView.attributedText.mutableCopy() as! NSMutableAttributedString
                 if let image = image {
