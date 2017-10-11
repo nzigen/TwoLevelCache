@@ -11,5 +11,5 @@ language: objective-c
 # - pod install --project-directory=Example
 script:
 - set -o pipefail
-- xcodebuild test -enableCodeCoverage YES -workspace Example/TwoLevelCache.xcworkspace -scheme TwoLevelCache-Example -sdk iphonesimulator11.0 -configuration Debug ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- xcodebuild -workspace Example/TwoLevelCache.xcworkspace -scheme TwoLevelCache-Example -sdk iphonesimulator11.0 -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 5s' ONLY_ACTIVE_ARCH=NO test | xcpretty -c
 - pod lib lint
