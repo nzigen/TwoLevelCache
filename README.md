@@ -11,7 +11,7 @@ All cache data are managed by OS level. Then you don't have to consider the numb
 
 ## Usage
 
-You can make an effective PNG cache with downloader as following:
+You can make an effective PNG cache with downloader as follows:
 
 ```swift
 let cache = try! TwoLevelCache<UIImage>("effective-png-cache")
@@ -42,8 +42,17 @@ You can use enum TwoLevelCacheHitStatus to know how the object has been found.
 ```swift
 .memory  // Level 1 (NSCache)
 .file  // Level 2 (NSCachesDirectory)
-.downloader  // Cache miss (Your downloader is used)
+.downloader  // Cache miss (your device has downloaded the object)
 .error  // All caches return nil and downloading data has been failed
+```
+
+### removing caches
+
+System will remove unused resources automatically. However, you can also remove caches as follows:
+
+```swift
+cache.removeAllObjects()
+cache.removeObject(forKey: "https://nzigen.com/static/img/common/logo.png")
 ```
 
 ## Example
