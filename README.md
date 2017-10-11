@@ -9,6 +9,32 @@ Customizable two-level cache for iOS (Swift). Level 1 is memory powered by NSCac
 
 All cache data are managed by OS level. Then you don't have to consider the number of objects and the usage of memory or storage.
 
+## Usage
+
+You can make an effective PNG cache with downloader as following:
+
+```swift
+let cache = try! TwoLevelCache<UIImage>("effective-png-cache")
+cache.downloader = { (key, callback) in
+    let url = URL(string: key)!
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        callback(data)
+    }.resume()
+}
+cache.objectDecoder = { (data) in
+    return UIImage(data: data)
+}
+cache.objectEncoder = { (object) in
+    return UIImagePNGRepresentation(object)
+}
+
+cache.findObject(forKey: "https://nzigen.com/static/img/common/logo.png") { (image, status) in
+    DispatchQueue.main.sync {
+        imageView.image = image
+    }
+}
+```
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -24,7 +50,7 @@ pod 'TwoLevelCache'
 
 ## Author
 
-Yoshihiro Sawa, yoshihirosawa at gmail.com
+Yoshihiro Sawa (Nzigen, Inc), yoshihirosawa at gmail.com
 
 ## License
 
