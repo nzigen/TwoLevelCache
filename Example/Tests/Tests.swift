@@ -77,7 +77,41 @@ class Tests: XCTestCase {
         wait(for: [expectation0], timeout: 30)
     }
     
-    func testSavingObjects() {
+    func testSettingData() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setData(UIImagePNGRepresentation(image)!, forKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        XCTAssertEqual(memoryCached!.size, image.size)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        XCTAssertEqual(fileCached!.size, image.size)
+    }
+    
+    func testSettingDataForFileCache() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setData(UIImagePNGRepresentation(image)!, forFileCacheKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        XCTAssertEqual(fileCached!.size, image.size)
+    }
+    
+    func testSettingDataForMemoryCache() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setData(UIImagePNGRepresentation(image)!, forMemoryCacheKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        XCTAssertEqual(memoryCached!.size, image.size)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNil(fileCached)
+    }
+    
+    func testSettingObjects() {
         let cache = generateImageCache()
         let image = UIImage(named: TestsSampleImagePath)!
         cache.setObject(image, forKey: TestsSampleImagePath)
