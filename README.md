@@ -35,6 +35,17 @@ cache.findObject(forKey: "https://nzigen.com/static/img/common/logo.png") { (ima
 }
 ```
 
+### TwoLevelCacheHitStatus
+
+You can use enum TwoLevelCacheHitStatus to know how the object has been found.
+
+```swift
+.memory  // Level 1 (NSCache)
+.file  // Level 2 (NSCachesDirectory)
+.downloader  // Cache miss (Your downloader is used)
+.error  // All caches return nil and downloading data has been failed
+```
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

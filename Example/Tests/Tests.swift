@@ -18,16 +18,16 @@ class Tests: XCTestCase {
         let url = TestsSampleImageUrl + "?v=\(Date().timeIntervalSince1970)"
         cache.findObject(forKey: url) { (image, status) in
             XCTAssertNotNil(image)
-            XCTAssertEqual(status, TwoLevelCacheLoadStatus.downloader)
+            XCTAssertEqual(status, TwoLevelCacheHitStatus.downloader)
             expectation0.fulfill()
             cache.findObject(forKey: url) { (image, status) in
                 XCTAssertNotNil(image)
-                XCTAssertEqual(status, TwoLevelCacheLoadStatus.memory)
+                XCTAssertEqual(status, TwoLevelCacheHitStatus.memory)
                 expectation1.fulfill()
                 cache.removeObject(forMemoryCacheKey: url)
                 cache.findObject(forKey: url) { (image, status) in
                     XCTAssertNotNil(image)
-                    XCTAssertEqual(status, TwoLevelCacheLoadStatus.file)
+                    XCTAssertEqual(status, TwoLevelCacheHitStatus.file)
                     expectation2.fulfill()
                 }
             }
@@ -47,7 +47,7 @@ class Tests: XCTestCase {
         let url = TestsSampleImageUrl + "?v=\(Date().timeIntervalSince1970)"
         cache.findObject(forKey: url) { (image, status) in
             XCTAssertNotNil(image)
-            XCTAssertEqual(status, TwoLevelCacheLoadStatus.downloader)
+            XCTAssertEqual(status, TwoLevelCacheHitStatus.downloader)
             sleep(1)
             cache.removeObject(forMemoryCacheKey: url)
             XCTAssertNil(cache.object(forMemoryCacheKey: url))

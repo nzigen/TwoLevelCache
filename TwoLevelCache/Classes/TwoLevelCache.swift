@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum TwoLevelCacheLoadStatus: Int {
+public enum TwoLevelCacheHitStatus: Int {
     case downloader = 3
     case error = -1
     case file = 2
@@ -34,7 +34,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         try fileManager.createDirectory(at: fileCacheDirectory, withIntermediateDirectories: true, attributes: nil)
     }
     
-    public func findObject(forKey key: String, callback: @escaping (T?, TwoLevelCacheLoadStatus) -> Void) {
+    public func findObject(forKey key: String, callback: @escaping (T?, TwoLevelCacheHitStatus) -> Void) {
         queue.async {
             if let object = self.object(forMemoryCacheKey: key) {
                 callback(object, .memory)
