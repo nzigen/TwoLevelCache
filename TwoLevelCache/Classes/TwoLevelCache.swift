@@ -15,10 +15,10 @@ public enum TwoLevelCacheHitStatus: Int {
 }
 
 open class TwoLevelCache<T: NSObject>: NSObject {
+    public var deserializer: ((Data) -> T?)!
     public var downloader: ((String, @escaping (Data?) -> Void) -> Void)!
     public let name: String
-    public var objectDecoder: ((Data) -> T?)!
-    public var objectEncoder: ((T) -> Data?)!
+    public var serializer: ((T) -> Data?)!
     let fileCacheDirectory: URL
     let fileManager = FileManager()
     let memoryCache = NSCache<NSString, T>()
@@ -49,7 +49,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
             }
             self.downloader(key, { (_ data: Data?) in
                 if let data = data {
-                    if let object = self.objectDecoder(data) {
+                    if let object = self.deserializer(data) {
                         self.queue.async {
                             self.setObject(object, forMemoryCacheKey: key)
                             self.setData(data, forFileCacheKey: key)
@@ -67,7 +67,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         let url = self.encodeFilePath(key)
         let data = try? Data(contentsOf: url)
         if let data = data {
-            if let object = self.objectDecoder(data) {
+            if let object = self.deserializer(data) {
                 return object
             }
         }
@@ -118,7 +118,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
     }
     
     public func setData(_ data: Data, forMemoryCacheKey key: String) {
-        if let object = objectDecoder(data) {
+        if let object = deserializer(data) {
             memoryCache.setObject(object, forKey: key as NSString)
         } else {
             removeObject(forMemoryCacheKey: key)
@@ -127,7 +127,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
     
     public func setObject(_ object: T, forFileCacheKey key: String) {
         let url = self.encodeFilePath(key)
-        if let data = self.objectEncoder(object) {
+        if let data = self.serializer(object) {
             try? data.write(to: url)
         } else {
             try? self.fileManager.removeItem(at: url)

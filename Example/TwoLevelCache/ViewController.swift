@@ -67,10 +67,10 @@ class ViewController: UIViewController {
                     callback(data)
                     }.resume()
                 }
-            cache.objectDecoder = { (data) in
+            cache.deserializer = { (data) in
                 return UIImage(data: data)
             }
-            cache.objectEncoder = { (object) in
+            cache.serializer = { (object) in
                 return UIImagePNGRepresentation(object)
             }
         } catch {
