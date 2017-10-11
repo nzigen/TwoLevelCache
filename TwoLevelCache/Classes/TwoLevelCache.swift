@@ -93,10 +93,18 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         }
     }
     
-    public func removeObject(forKey key: String) {
-        self.memoryCache.removeObject(forKey: key as NSString)
+    public func removeObject(forFileCacheKey key: String) {
         let url = self.encodeFilePath(key)
         try? self.fileManager.removeItem(at: url)
+    }
+    
+    public func removeObject(forKey key: String) {
+        self.removeObject(forMemoryCacheKey: key)
+        self.removeObject(forFileCacheKey: key)
+    }
+    
+    public func removeObject(forMemoryCacheKey key: String) {
+        self.memoryCache.removeObject(forKey: key as NSString)
     }
     
     public func setData(_ data: Data, forFileCacheKey key: String) {
@@ -113,7 +121,7 @@ open class TwoLevelCache<T: NSObject>: NSObject {
         if let object = objectDecoder(data) {
             memoryCache.setObject(object, forKey: key as NSString)
         } else {
-            memoryCache.removeObject(forKey: key as NSString)
+            removeObject(forMemoryCacheKey: key)
         }
     }
     

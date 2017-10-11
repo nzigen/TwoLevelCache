@@ -7,7 +7,7 @@
 
 Customizable two-level cache for iOS (Swift). Level 1 is memory powered by NSCache and level 2 is filesystem which uses NSCachesDirectory.
 
-All cache data are managed by OS level. Then you should not consider the number of objects and the usages of memory or storage.
+All cache data are managed by OS level. Then you don't have to consider the number of objects and the usage of memory or storage.
 
 ## Example
 

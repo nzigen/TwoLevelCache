@@ -36,7 +36,9 @@ class Tests: XCTestCase {
         let expectation0 =
             self.expectation(description: "downloading an image")
         let expectation1 =
-            self.expectation(description: "finding an image from caches")
+            self.expectation(description: "finding an image from memory cache")
+        let expectation2 =
+            self.expectation(description: "finding an image from file cache")
         let url = "https://nzigen.com/static/img/common/logo.png?v=\(Date().timeIntervalSince1970)"
         cache.findObject(forKey: url) { (image, status) in
             XCTAssertNotNil(image)
@@ -44,13 +46,16 @@ class Tests: XCTestCase {
             expectation0.fulfill()
             cache.findObject(forKey: url) { (image, status) in
                 XCTAssertNotNil(image)
-                let statuses: [TwoLevelCacheLoadStatus] = [.memory, .file]
-                XCTAssertTrue(statuses.contains(where: { (target) -> Bool in
-                    return status == target
-                }))
+                XCTAssertEqual(status, TwoLevelCacheLoadStatus.memory)
                 expectation1.fulfill()
+                cache.removeObject(forMemoryCacheKey: url)
+                cache.findObject(forKey: url) { (image, status) in
+                    XCTAssertNotNil(image)
+                    XCTAssertEqual(status, TwoLevelCacheLoadStatus.file)
+                    expectation2.fulfill()
+                }
             }
         }
-        wait(for: [expectation0, expectation1], timeout: 30)
+        wait(for: [expectation0, expectation1, expectation2], timeout: 30)
     }
 }
