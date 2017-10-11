@@ -60,21 +60,64 @@ class Tests: XCTestCase {
         wait(for: [expectation0], timeout: 30)
     }
     
-    func testRemovingObjects() {
+    func testRemovingAllObjects() {
         let cache = generateImageCache()
-        let expectation0 =
-            self.expectation(description: "downloading an image")
-        let url = TestsSampleImageUrl + "?v=\(Date().timeIntervalSince1970)"
-        cache.findObject(forKey: url) { (image, status) in
-            XCTAssertNotNil(image)
-            XCTAssertEqual(status, TwoLevelCacheLoadStatus.downloader)
-            sleep(1)
-            cache.removeObject(forKey: url)
-            XCTAssertNil(cache.object(forMemoryCacheKey: url))
-            XCTAssertNil(cache.object(forFileCacheKey: url))
-            expectation0.fulfill()
-        }
-        wait(for: [expectation0], timeout: 30)
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        cache.removeAllObjects()
+        let memoryNotCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNil(memoryNotCached)
+        let fileNotCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNil(fileNotCached)
+    }
+    
+    func testRemovingObject() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        cache.removeObject(forKey: TestsSampleImagePath)
+        let memoryNotCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNil(memoryNotCached)
+        let fileNotCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNil(fileNotCached)
+    }
+    
+    func testRemovingObjectForFileCache() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        cache.removeObject(forFileCacheKey: TestsSampleImagePath)
+        let memoryStillCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryStillCached)
+        let fileNotCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNil(fileNotCached)
+    }
+    
+    func testRemovingObjectForMemoryCache() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        cache.removeObject(forMemoryCacheKey: TestsSampleImagePath)
+        let memoryNotCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNil(memoryNotCached)
+        let fileStillCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileStillCached)
     }
     
     func testSettingData() {
@@ -111,7 +154,7 @@ class Tests: XCTestCase {
         XCTAssertNil(fileCached)
     }
     
-    func testSettingObjects() {
+    func testSettingObject() {
         let cache = generateImageCache()
         let image = UIImage(named: TestsSampleImagePath)!
         cache.setObject(image, forKey: TestsSampleImagePath)
@@ -121,6 +164,28 @@ class Tests: XCTestCase {
         let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
         XCTAssertNotNil(fileCached)
         XCTAssertEqual(fileCached!.size, image.size)
+    }
+    
+    func testSettingObjectForFileCache() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forFileCacheKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        XCTAssertEqual(fileCached!.size, image.size)
+    }
+    
+    func testSettingObjectForMemoryCache() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forMemoryCacheKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        XCTAssertEqual(memoryCached!.size, image.size)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNil(fileCached)
     }
     
     private func generateImageCache() -> TwoLevelCache<UIImage> {
