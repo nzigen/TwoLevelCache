@@ -1,6 +1,6 @@
 # TwoLevelCache
 
-[![CI Status](http://img.shields.io/travis/Yoshihiro%20Sawa/TwoLevelCache.svg?style=flat)](https://travis-ci.org/Yoshihiro%20Sawa/TwoLevelCache)
+[![CI Status](http://img.shields.io/travis/ysawa/TwoLevelCache.svg?style=flat)](https://travis-ci.org/ysawa/TwoLevelCache)
 [![Version](https://img.shields.io/cocoapods/v/TwoLevelCache.svg?style=flat)](http://cocoapods.org/pods/TwoLevelCache)
 [![License](https://img.shields.io/cocoapods/l/TwoLevelCache.svg?style=flat)](http://cocoapods.org/pods/TwoLevelCache)
 [![Platform](https://img.shields.io/cocoapods/p/TwoLevelCache.svg?style=flat)](http://cocoapods.org/pods/TwoLevelCache)
