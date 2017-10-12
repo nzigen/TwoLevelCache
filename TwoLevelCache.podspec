@@ -19,7 +19,7 @@ All cache data are managed by OS level. Then you don't have to consider the numb
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Yoshihiro Sawa' => 'yoshihirosawa@gmail.com' }
-  s.source           = { :git => 'https://github.com/Yoshihiro Sawa/TwoLevelCache.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/ysawa/TwoLevelCache.git', :tag => s.version.to_s }
   s.social_media_url      = "https://twitter.com/yoshiiiine"
 
   s.ios.deployment_target = '8.0'
