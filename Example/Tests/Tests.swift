@@ -75,6 +75,22 @@ class Tests: XCTestCase {
         XCTAssertNil(fileNotCached)
     }
     
+    func testRemovingAllObjectsWithCallback() {
+        let cache = generateImageCache()
+        let image = UIImage(named: TestsSampleImagePath)!
+        cache.setObject(image, forKey: TestsSampleImagePath)
+        let memoryCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(memoryCached)
+        let fileCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+        XCTAssertNotNil(fileCached)
+        cache.removeAllObjects {
+            let memoryNotCached = cache.object(forMemoryCacheKey: TestsSampleImagePath)
+            XCTAssertNil(memoryNotCached)
+            let fileNotCached = cache.object(forFileCacheKey: TestsSampleImagePath)
+            XCTAssertNil(fileNotCached)
+        }
+    }
+    
     func testRemovingObject() {
         let cache = generateImageCache()
         let image = UIImage(named: TestsSampleImagePath)!
